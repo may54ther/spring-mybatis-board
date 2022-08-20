@@ -62,6 +62,7 @@ public class PostController {
     //삭제
     @GetMapping("/{id}/remove")
     public String remove(@PathVariable long id) {
+        postService.remove(id);
         return "redirect:/";
     }
 }

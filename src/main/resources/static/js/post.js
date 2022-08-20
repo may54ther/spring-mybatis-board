@@ -32,9 +32,14 @@ const Editor = EL_EDITOR ?
 /////////////////////////////////////////////////
 var postActions = {
     getList: function () {
-        location.href = `/board`;
+        location.href = `/posts`;
     },
     getDetail: function (postNo) {
-        location.href = `/board/${postNo}`;
-    }
+        location.href = `/posts/${postNo}`;
+    },
+    removePost: function (postNo) {
+        if (confirm("게시글을 삭제하시겠습니까?")) {
+            location.href = `/posts/${postNo}/remove`;
+        }
+    },
 }
