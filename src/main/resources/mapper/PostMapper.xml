@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.ahakim.crud.mapper.PostMapper">
+    <select id="total" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM post
+        WHERE use_flag = 'T'
+        ]]>
+    </select>
+
+    <select id="selectAll" resultType="Post">
+        <![CDATA[
+        SELECT id,
+               writer,
+               title,
+               views,
+               ref_id,
+               `order`,
+               indent,
+               create_date
+        FROM post
+        WHERE use_flag = 'T'
+        ORDER BY ref_id DESC, `order`
+        LIMIT #{param1}, #{param2}
+        ]]>
+    </select>
+
+    <select id="selectById" parameterType="long" resultType="Post">
+        <![CDATA[
+        SELECT id, writer, title, content, views, create_date
+        FROM post
+        WHERE use_flag = 'T'
+          AND id = #{param1}
+        ]]>
+    </select>
+
+    <insert id="insert" parameterType="Post">
+        <selectKey resultType="long" keyProperty="id" order="BEFORE">
+            SELECT MAX(id)+1
+            FROM post
+        </selectKey>
+
+        <![CDATA[
+            INSERT INTO post (id, writer,  title, content, ref_id, `order`, indent)
+            VALUES (#{id}, #{writer}, #{title}, #{content}, #{id}, 0, 0)
+        ]]>
+    </insert>
+
+    <update id="update" parameterType="PostUpdateForm">
+       <![CDATA[
+        UPDATE post
+        SET title  = #{title},
+            content=#{content}
+        WHERE id = #{id}
+        ]]>
+    </update>
+
+    <update id="updateViews" parameterType="long">
+       <![CDATA[
+        UPDATE post
+        SET views = views + 1
+        WHERE id = ${param1}
+        ]]>
+    </update>
+
+    <update id="delete" parameterType="long">
+       <![CDATA[
+        UPDATE post
+        SET use_flag='F'
+        WHERE id = #{param1}
+        ]]>
+    </update>
+</mapper>
