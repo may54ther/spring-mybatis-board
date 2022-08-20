@@ -1,5 +1,6 @@
 package io.ahakim.crud.mapper;
 
+import io.ahakim.crud.domain.Criteria;
 import io.ahakim.crud.domain.Post;
 import io.ahakim.crud.form.PostUpdateForm;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface PostMapper {
 
     int total();
-    List<Post> selectAll(int page, int size);
+    List<Post> selectAll(Criteria criteria);
     Post selectById(Long id);
     void insert(Post post);
     void update(PostUpdateForm form);

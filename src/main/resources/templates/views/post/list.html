@@ -11,6 +11,11 @@
 <th:block layout:fragment="content">
     <div class="content">
         <div class="sec_post">
+            <!-- Criteria -->
+            <form th:action="post" th:object="${criteria}">
+                <input type="hidden" th:field="*{page}"/>
+                <input type="hidden" th:field="*{rowSize}"/>
+            </form>
             <!-- post-body -->
             <div class="post-body">
                 <table class="ui center aligned celled table">

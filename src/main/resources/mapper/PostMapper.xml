@@ -23,7 +23,7 @@
         FROM post
         WHERE use_flag = 'T'
         ORDER BY ref_id DESC, `order`
-        LIMIT #{param1}, #{param2}
+        LIMIT #{startRow}, #{rowSize}
         ]]>
     </select>
 

@@ -1,5 +1,6 @@
 package io.ahakim.crud.controller;
 
+import io.ahakim.crud.domain.Criteria;
 import io.ahakim.crud.form.PostSaveForm;
 import io.ahakim.crud.form.PostUpdateForm;
 import io.ahakim.crud.service.PostService;
@@ -18,11 +19,11 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public String posts(Model model) {
-        model.addAttribute("posts", postService.findAll());
+    public String posts(@ModelAttribute Criteria criteria, Model model) {
+        model.addAttribute("posts", postService.findAll(criteria));
+        model.addAttribute("criteria", criteria);
         return "views/post/list";
     }
-
 
     //조회
     @GetMapping("/{id}")

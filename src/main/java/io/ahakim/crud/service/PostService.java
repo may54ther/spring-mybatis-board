@@ -1,5 +1,6 @@
 package io.ahakim.crud.service;
 
+import io.ahakim.crud.domain.Criteria;
 import io.ahakim.crud.domain.Post;
 import io.ahakim.crud.form.PostUpdateForm;
 import io.ahakim.crud.mapper.PostMapper;
@@ -21,8 +22,8 @@ public class PostService {
         return postMapper.total();
     }
 
-    public List<Post> findAll() {
-        return postMapper.selectAll(0, 10);
+    public List<Post> findAll(Criteria criteria) {
+        return postMapper.selectAll(criteria);
     }
 
     public Post findById(Long id) {
