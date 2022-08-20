@@ -1,6 +1,7 @@
 package io.ahakim.crud.controller;
 
 import io.ahakim.crud.domain.Criteria;
+import io.ahakim.crud.domain.PageMaker;
 import io.ahakim.crud.form.PostSaveForm;
 import io.ahakim.crud.form.PostUpdateForm;
 import io.ahakim.crud.service.PostService;
@@ -20,8 +21,9 @@ public class PostController {
 
     @GetMapping
     public String posts(@ModelAttribute Criteria criteria, Model model) {
+        PageMaker pageMaker = new PageMaker(postService.total(), criteria);
         model.addAttribute("posts", postService.findAll(criteria));
-        model.addAttribute("criteria", criteria);
+        model.addAttribute("pageMaker", pageMaker);
         return "views/post/list";
     }
 

@@ -11,11 +11,6 @@
 <th:block layout:fragment="content">
     <div class="content">
         <div class="sec_post">
-            <!-- Criteria -->
-            <form th:action="post" th:object="${criteria}">
-                <input type="hidden" th:field="*{page}"/>
-                <input type="hidden" th:field="*{rowSize}"/>
-            </form>
             <!-- post-body -->
             <div class="post-body">
                 <table class="ui center aligned celled table">
@@ -50,6 +45,43 @@
                     </div>
                 </div>
             </div>
+            <!-- pagination -->
+            <form th:action th:object="${pageMaker}">
+                <input type="hidden" th:field="*{criteria.page}"/>
+                <input type="hidden" th:field="*{criteria.rowSize}"/>
+                <nav class="page-nav" aria-label="Page navigation" role="navigation">
+                    <div class="ui pagination menu">
+                        <th:block th:if="${pageMaker.prev}">
+                            <a class="item" th:href="@{/posts(page=1)}">
+                                <i class="icon angle double left"></i>
+                                <span class="blind">처음</span>
+                            </a>
+                            <a class="item" th:href="@{/posts(page=${pageMaker.rangeStart+(-1)})}">
+                                <i class="angle left icon"></i>
+                                <span class="blind">이전</span>
+                            </a>
+                        </th:block>
+
+                        <!-- Number -->
+                        <th:block th:each="pageNo : ${#numbers.sequence(pageMaker.rangeStart, pageMaker.rangeEnd)}">
+                            <a class="item" th:th:classappend="${pageNo == pageMaker.criteria.page ? 'active':''}"
+                               th:href="@{/posts(page=${pageNo})}" th:text="${pageNo}"></a>
+                        </th:block>
+
+                        <!-- Next, Last -->
+                        <th:block th:if="${pageMaker.next}">
+                            <a class="item" th:href="@{/posts(page=${pageMaker.rangeEnd+1})}">
+                                <i class="angle right icon"></i>
+                                <span class="blind">다음</span>
+                            </a>
+                            <a class="item" th:href="@{/posts(page=${pageMaker.totalPage})}">
+                                <i class="angle double right icon"></i>
+                                <span class="blind">마지막</span>
+                            </a>
+                        </th:block>
+                    </div>
+                </nav>
+            </form>
         </div>
     </div>
 </th:block>
