@@ -11,38 +11,43 @@
 <th:block layout:fragment="content">
     <div class="content">
         <div class="sec_post">
-            <form id="addForm" name="saveForm" method="post" action="add.html">
+            <form id="addForm" name="postForm" method="post" action="add.html" th:action th:object="${post}"
+                  th:onsubmit="|postActions.savePost(event)|">
                 <!-- post-head -->
                 <div class="post-head">
-                    <div class="post-head">
-                        <div class="ui grid equal width">
-                            <div class="six wide column">
-                                <label for="writer" class="blind">작성자</label>
-                                <span class="ui input fluid item">
-                                <input type="text" id="writer" placeholder="작성자" maxlength="20"/>
+                    <div class="ui grid equal width">
+                        <div class="five wide column">
+                            <label for="writer" class="blind">작성자</label>
+                            <span class="ui input fluid item">
+                                <input type="text" id="writer" th:field="*{writer}" placeholder="작성자" maxlength="20"/>
                             </span>
-                            </div>
-                            <div class="ten wide column">
-                                <label for="title" class="blind">제목</label>
-                                <span class="ui input fluid item">
-                                <input type="text" id="title"  placeholder="제목을 입력해 주세요."
+                        </div>
+                        <div class="eleven wide column">
+                            <label for="title" class="blind">제목</label>
+                            <span class="ui input fluid item">
+                                <input type="text" id="title" th:field="*{title}" placeholder="제목을 입력해 주세요."
                                        maxlength="100"/>
                             </span>
-                            </div>
                         </div>
+                    </div>
                 </div>
                 <!-- post-body -->
                 <div class="post-body">
+                    <input type="hidden" th:field="*{content}" required/>
                     <div id="editor"></div>
                 </div>
                 <!-- post-foot -->
                 <div class="post-foot">
                     <div class="buttons">
                         <div class="left">
-                            <button type="button" class="ui button large">취소</button>
+                            <button type="button" class="ui button large" th:onclick="|postActions.getList()|">취소
+                            </button>
                         </div>
                         <div class="right">
-                            <button type="submit" class="ui primary button large">저장</button>
+                            <button type="submit" class="ui primary button large"
+                                    th:onclick="|postActions.savePost(event)|">
+                                저장
+                            </button>
                         </div>
                     </div>
                 </div>

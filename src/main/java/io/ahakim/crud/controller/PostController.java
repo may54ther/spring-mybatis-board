@@ -2,6 +2,7 @@ package io.ahakim.crud.controller;
 
 import io.ahakim.crud.domain.Criteria;
 import io.ahakim.crud.domain.PageMaker;
+import io.ahakim.crud.domain.Post;
 import io.ahakim.crud.form.PostSaveForm;
 import io.ahakim.crud.form.PostUpdateForm;
 import io.ahakim.crud.service.PostService;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
@@ -43,20 +45,31 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    public String addPost(@ModelAttribute PostSaveForm form) {
+    public String add(@ModelAttribute PostSaveForm form, RedirectAttributes redirectAttributes) {
+        Post post = new Post();
+        post.setWriter(form.getWriter());
+        post.setTitle(form.getTitle());
+        post.setContent(form.getContent());
+
+        Post savedPost = postService.save(post);
+        redirectAttributes.addAttribute("id", savedPost.getId());
+        redirectAttributes.addAttribute("status", true);
         return "redirect:{id}";
     }
 
     //수정
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable long id, Model model) {
-        model.addAttribute("post", new PostUpdateForm());
+        model.addAttribute("post", postService.findById(id));
         return "views/post/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String editPost(@PathVariable long id) {
-        return "redirect:{id}";
+    public String edit(@PathVariable long id, @ModelAttribute PostUpdateForm form, RedirectAttributes redirectAttributes) {
+        postService.update(form);
+        redirectAttributes.addAttribute("id", id);
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/posts/{id}";
     }
 
     //삭제

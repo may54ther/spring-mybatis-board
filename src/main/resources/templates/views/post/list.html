@@ -41,7 +41,9 @@
             <div class="post-foot">
                 <div class="buttons">
                     <div class="right">
-                        <button type="button" class="ui primary button large">글쓰기</button>
+                        <button type="button" class="ui primary button large" th:onclick="|postActions.addForm()|">
+                            글쓰기
+                        </button>
                     </div>
                 </div>
             </div>

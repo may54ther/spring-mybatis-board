@@ -14,3 +14,25 @@ toastr.options = {
 function showErrorToast(msg) {
     toastr["error"](msg);
 }
+
+/////////////////////////////////////////////////
+// functions
+/////////////////////////////////////////////////
+function isNullOrEmpty(value) {
+    var returnValue = false;
+    try {
+        if (
+            ((value != 0) & !value)
+            || (typeof (value) == "undefined")
+            || value == null
+            || (typeof (value) == "object" && Object.prototype.toString.call(value) != "[object Date]" && !Object.keys(value).length)
+            || (typeof (value) == "string" && value.trim() == "")
+            || (typeof (value) == "number" && isNaN(value))
+        ) {
+            returnValue = true;
+        }
+    } catch (e) {
+        returnValue = false;
+    }
+    return returnValue;
+}

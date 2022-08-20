@@ -37,9 +37,28 @@ var postActions = {
     getDetail: function (postNo) {
         location.href = `/posts/${postNo}`;
     },
+    addForm: function () {
+        location.href = `/posts/add`;
+    },
+    editForm: function (postNo) {
+        location.href = `/posts/${postNo}/edit`;
+    },
     removePost: function (postNo) {
         if (confirm("게시글을 삭제하시겠습니까?")) {
             location.href = `/posts/${postNo}/remove`;
+        }
+    },
+    savePost: function (e) {
+        e.preventDefault();
+
+        if (isNullOrEmpty(writer.value)) {
+            showErrorToast("작성자를 입력하세요.");
+        } else if (isNullOrEmpty(title.value)) {
+            showErrorToast("제목을 입력하세요.")
+        } else if (isNullOrEmpty(content.value)) {
+            showErrorToast("내용을 입력하세요.");
+        } else {
+            postForm.submit();
         }
     },
 }
