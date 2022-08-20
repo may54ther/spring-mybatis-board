@@ -26,3 +26,15 @@ const Editor = EL_EDITOR ?
             }
         }
     }) : null;
+
+/////////////////////////////////////////////////
+// functions
+/////////////////////////////////////////////////
+var postActions = {
+    getList: function () {
+        location.href = `/board`;
+    },
+    getDetail: function (postNo) {
+        location.href = `/board/${postNo}`;
+    }
+}

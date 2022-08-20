@@ -25,23 +25,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="t_id">1</td>
+                    <tr th:each="post : ${posts}">
+                        <td class="t_id" th:text="${post.id}">1</td>
                         <td class="t_title">
-                            <a href="#">제목</a>
+                            <a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">제목</a>
                         </td>
-                        <td class="t_writer">작성자</td>
-                        <td class="t_date">2022-01-01</td>
-                        <td class="t_views">0</td>
+                        <td class="t_writer" th:text="${post.writer}">작성자</td>
+                        <td class="t_date" th:text="${post.createdAt}">2022-01-01</td>
+                        <td class="t_views" th:text="${post.views}">0</td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
             <!-- post-foot -->
             <div class="post-foot">
                 <div class="buttons">
                     <div class="right">
-                        <button type="button" class="ui primary button large">글쓰기
-                        </button>
+                        <button type="button" class="ui primary button large">글쓰기</button>
                     </div>
                 </div>
             </div>

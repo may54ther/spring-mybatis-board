@@ -19,12 +19,16 @@ public class PostController {
 
     @GetMapping
     public String posts(Model model) {
+        model.addAttribute("posts", postService.findAll());
         return "views/post/list";
     }
+
 
     //조회
     @GetMapping("/{id}")
     public String post(@PathVariable long id, Model model) {
+        postService.updateViews(id);
+        model.addAttribute("post", postService.findById(id));
         return "views/post/detail";
     }
 
