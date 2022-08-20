@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="style">
+    <link rel="stylesheet" th:href="@{/libs/toastui-editor/css/toastui-editor.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/post.css}"/>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="content">
+        <div class="sec_post">
+            <form id="detailForm" action="add.html" th:action method="post">
+                <!-- post-head -->
+                <div class="post-head">
+                    <div class="ui item">
+                        <p class="title">제목</p>
+                    </div>
+                    <div class="ui item">
+                        <strong class="writer">작성자</strong>
+                        <span> &middot; </span>
+                        <span class="date">2022-09-21</span>
+                        <span> &middot; </span>
+                        <span class="views">조회수</span>
+                    </div>
+                </div>
+                <!-- post-body -->
+                <div class="post-body">
+                    <div id="viewer">내용</div>
+                </div>
+                <!-- post-foot -->
+                <div class="post-foot">
+                    <div class="buttons">
+                        <div class="left">
+                            <button type="button" class="ui button large">목록</button>
+                            <button type="button" class="ui button large">수정</button>
+                            <button type="button" class="ui button large">삭제</button>
+                        </div>
+                        <div class="right">
+                            <button type="button" class="ui primary button large">글쓰기</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/libs/toastui-editor/js/toastui-editor-all.min.js}"></script>
+    <script th:src="@{/js/post.js}"></script>
+</th:block>
+</html>

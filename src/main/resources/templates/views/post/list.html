@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/default}">
+
+<th:block layout:fragment="style">
+    <link rel="stylesheet" th:href="@{/libs/toastui-editor/css/toastui-editor.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/post.css}"/>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="content">
+        <div class="sec_post">
+            <!-- post-body -->
+            <div class="post-body">
+                <table class="ui center aligned celled table">
+                    <caption class="blind">게시글 목록</caption>
+                    <thead>
+                    <tr>
+                        <th class="t_id" scope="col">번호</th>
+                        <th class="t_title" scope="col">제목</th>
+                        <th class="t_writer" scope="col">작성자</th>
+                        <th class="t_date" scope="col">날짜</th>
+                        <th class="t_views" scope="col">조회</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="t_id">1</td>
+                        <td class="t_title">
+                            <a href="#">제목</a>
+                        </td>
+                        <td class="t_writer">작성자</td>
+                        <td class="t_date">2022-01-01</td>
+                        <td class="t_views">0</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- post-foot -->
+            <div class="post-foot">
+                <div class="buttons">
+                    <div class="right">
+                        <button type="button" class="ui primary button large">글쓰기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/libs/toastui-editor/js/toastui-editor-all.min.js}"></script>
+    <script th:src="@{/js/post.js}"></script>
+</th:block>
+</html>
