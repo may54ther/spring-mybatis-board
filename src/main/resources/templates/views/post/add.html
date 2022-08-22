@@ -12,7 +12,7 @@
     <div class="content">
         <div class="sec_post">
             <form id="addForm" name="postForm" method="post" action="add.html" th:action th:object="${post}"
-                  th:onsubmit="|postActions.savePost(event)|">
+                  th:onsubmit="|postFormAction.savePost(event)|">
                 <!-- post-head -->
                 <div class="post-head">
                     <div class="ui grid equal width">
@@ -40,12 +40,12 @@
                 <div class="post-foot">
                     <div class="buttons">
                         <div class="left">
-                            <button type="button" class="ui button large" th:onclick="|postActions.getList()|">취소
+                            <button type="button" class="ui button large" th:onclick="|postFormAction.getList()|">취소
                             </button>
                         </div>
                         <div class="right">
                             <button type="submit" class="ui primary button large"
-                                    th:onclick="|postActions.savePost(event)|">
+                                    th:onclick="|postFormAction.savePost(event)|">
                                 저장
                             </button>
                         </div>

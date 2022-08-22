@@ -30,7 +30,7 @@ const Editor = EL_EDITOR ?
 /////////////////////////////////////////////////
 // functions
 /////////////////////////////////////////////////
-var postActions = {
+var postFormAction = {
     getList: function () {
         location.href = `/posts`;
     },
