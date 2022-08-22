@@ -27,6 +27,7 @@ public class PostService {
     }
 
     public Post findById(Long id) {
+        Post post = postMapper.selectById(id);
         return postMapper.selectById(id);
     }
 

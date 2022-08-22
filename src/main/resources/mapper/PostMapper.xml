@@ -19,7 +19,7 @@
                ref_id,
                `order`,
                indent,
-               create_date
+               DATE_FORMAT(create_date, '%Y-%m-%d') AS `createdAt`
         FROM post
         WHERE use_flag = 'T'
         ORDER BY ref_id DESC, `order`
@@ -29,7 +29,7 @@
 
     <select id="selectById" parameterType="long" resultType="Post">
         <![CDATA[
-        SELECT id, writer, title, content, views, create_date
+        SELECT id, writer, title, content, views, DATE_FORMAT(create_date, '%Y-%m-%d %H:%i') AS `createdAt`
         FROM post
         WHERE use_flag = 'T'
           AND id = #{param1}
@@ -43,7 +43,7 @@
         </selectKey>
 
         <![CDATA[
-            INSERT INTO post (id, writer,  title, content, ref_id, `order`, indent)
+            INSERT INTO post (id, writer, title, content, ref_id, `order`, indent)
             VALUES (#{id}, #{writer}, #{title}, #{content}, #{id}, 0, 0)
         ]]>
     </insert>
