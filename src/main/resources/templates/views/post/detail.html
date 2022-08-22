@@ -10,6 +10,8 @@
 
 <th:block layout:fragment="content">
     <div class="content">
+        <h2 class="blind" th:text="#{page.post}"></h2>
+
         <div class="sec_post">
             <form id="detailForm" name="postForm" action="add.html" th:action method="post" th:object="${post}">
                 <input type="hidden" th:field="*{id}">
@@ -34,12 +36,12 @@
                 <div class="post-foot">
                     <div class="buttons">
                         <div class="left">
-                            <button type="button" class="ui button large" th:onclick="|postFormAction.getList()|">목록</button>
-                            <button type="button" class="ui button large" th:onclick="|postFormAction.editForm(${id})|"> 수정</button>
-                            <button type="button" class="ui button large" th:onclick="|postFormAction.removePost(${id})|"> 삭제</button>
+                            <button type="button" class="ui button large" th:text="#{button.list}" th:onclick="|postFormAction.getList()|">목록</button>
+                            <button type="button" class="ui button large" th:text="#{button.edit}" th:onclick="|postFormAction.editForm(${id})|">수정</button>
+                            <button type="button" class="ui button large" th:text="#{button.remove}" th:onclick="|postFormAction.removePost(${id})|">삭제</button>
                         </div>
                         <div class="right">
-                            <button type="button" class="ui primary button large" th:onclick="|postFormAction.addForm()|"> 글쓰기</button>
+                            <button type="button" class="ui primary button large" th:text="#{button.add}" th:onclick="|postFormAction.addForm()|">글쓰기</button>
                         </div>
                     </div>
                 </div>

@@ -10,18 +10,19 @@
 
 <th:block layout:fragment="content">
     <div class="content">
+        <h2 th:text="#{page.posts}"></h2>
+
         <div class="sec_post">
             <!-- post-body -->
             <div class="post-body">
-                <table class="ui center aligned celled table">
-                    <caption class="blind">게시글 목록</caption>
+                <table class="ui center aligned celled unstackable table">
                     <thead>
                     <tr>
-                        <th class="t_id" scope="col">번호</th>
-                        <th class="t_title" scope="col">제목</th>
-                        <th class="t_writer" scope="col">작성자</th>
-                        <th class="t_date" scope="col">날짜</th>
-                        <th class="t_views" scope="col">조회</th>
+                        <th th:text="#{label.post.id}" class="t_id" scope="col">번호</th>
+                        <th th:text="#{label.post.title}" class="t_title" scope="col">제목</th>
+                        <th th:text="#{label.post.writer}" class="t_writer" scope="col">작성자</th>
+                        <th th:text="#{label.post.createdAt}" class="t_date" scope="col">날짜</th>
+                        <th th:text="#{label.post.views}" class="t_views" scope="col">조회</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -41,7 +42,7 @@
             <div class="post-foot">
                 <div class="buttons">
                     <div class="right">
-                        <button type="button" class="ui primary button large" th:onclick="|postFormAction.addForm()|">글쓰기</button>
+                        <button type="button" class="ui primary button large" th:text="#{button.add}" th:onclick="|postFormAction.addForm()|">글쓰기</button>
                     </div>
                 </div>
             </div>
