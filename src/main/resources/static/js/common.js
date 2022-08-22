@@ -18,6 +18,16 @@ function showErrorToast(msg) {
 /////////////////////////////////////////////////
 // functions
 /////////////////////////////////////////////////
+function lengthRange(el, minlength, maxlength) {
+    var inputValue = el.value;
+    if (inputValue.length >= minlength && inputValue.length <= maxlength) {
+        return true;
+    } else {
+        showErrorToast("최소 " + minlength + ", 최대 " + maxlength + "까지 입력하세요.");
+        return false;
+    }
+}
+
 function isNullOrEmpty(value) {
     var returnValue = false;
     try {

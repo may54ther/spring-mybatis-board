@@ -41,9 +41,7 @@
             <div class="post-foot">
                 <div class="buttons">
                     <div class="right">
-                        <button type="button" class="ui primary button large" th:onclick="|postFormAction.addForm()|">
-                            글쓰기
-                        </button>
+                        <button type="button" class="ui primary button large" th:onclick="|postFormAction.addForm()|">글쓰기</button>
                     </div>
                 </div>
             </div>
@@ -66,8 +64,7 @@
 
                         <!-- Number -->
                         <th:block th:each="pageNo : ${#numbers.sequence(pageMaker.rangeStart, pageMaker.rangeEnd)}">
-                            <a class="item" th:th:classappend="${pageNo == pageMaker.criteria.page ? 'active':''}"
-                               th:href="@{/posts(page=${pageNo})}" th:text="${pageNo}"></a>
+                            <a class="item" th:th:classappend="${pageNo == pageMaker.criteria.page ? 'active':''}" th:href="@{/posts(page=${pageNo})}" th:text="${pageNo}"></a>
                         </th:block>
 
                         <!-- Next, Last -->

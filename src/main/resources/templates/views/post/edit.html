@@ -11,8 +11,7 @@
 <th:block layout:fragment="content">
     <div class="content">
         <div class="sec_post">
-            <form id="editForm" name="postForm" action="edit.html" th:action th:object="${post}" method="post"
-                  th:onsubmit="|postFormAction.savePost(event)|">
+            <form id="editForm" name="postForm" action="edit.html" th:action th:object="${post}" method="post" th:onsubmit="|postFormAction.savePost(event)|">
                 <input type="hidden" th:field="*{id}">
                 <input type="hidden" th:field="*{writer}">
                 <!-- post-head -->
@@ -21,8 +20,7 @@
                         <div class="wide column">
                             <label for="title" class="blind">제목</label>
                             <span class="ui input fluid item">
-                                <input type="text" id="title" th:field="*{title}" placeholder="제목을 입력해 주세요."
-                                       maxlength="100"/>
+                                <input type="text" id="title" th:field="*{title}" placeholder="제목 (100자 이하)" maxlength="100"/>
                             </span>
                         </div>
                     </div>
@@ -36,14 +34,10 @@
                 <div class="post-foot">
                     <div class="buttons">
                         <div class="left">
-                            <button type="button" class="ui button large" th:onclick="|postFormAction.getList()|">취소
-                            </button>
+                            <button type="button" class="ui button large" th:onclick="|postFormAction.getList()|">취소</button>
                         </div>
                         <div class="right">
-                            <button type="submit" class="ui primary button large"
-                                    th:onclick="|postFormAction.savePost(event)|">
-                                저장
-                            </button>
+                            <button type="submit" class="ui primary button large" th:onclick="|postFormAction.savePost(event)|">저장</button>
                         </div>
                     </div>
                 </div>
