@@ -61,7 +61,8 @@
        <![CDATA[
         UPDATE post
         SET views = views + 1
-        WHERE id = ${param1}
+        WHERE use_flag = 'T'
+          AND id = ${param1}
         ]]>
     </update>
 

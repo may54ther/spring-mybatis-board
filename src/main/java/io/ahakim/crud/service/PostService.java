@@ -2,6 +2,7 @@ package io.ahakim.crud.service;
 
 import io.ahakim.crud.domain.Criteria;
 import io.ahakim.crud.domain.Post;
+import io.ahakim.crud.form.PostSaveForm;
 import io.ahakim.crud.form.PostUpdateForm;
 import io.ahakim.crud.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,6 @@ public class PostService {
 
     private final PostMapper postMapper;
 
-
     public int total() {
         return postMapper.total();
     }
@@ -27,11 +27,15 @@ public class PostService {
     }
 
     public Post findById(Long id) {
-        Post post = postMapper.selectById(id);
         return postMapper.selectById(id);
     }
 
-    public Post save(Post post) {
+    public Post save(PostSaveForm form) {
+        Post post = new Post();
+        post.setWriter(form.getWriter());
+        post.setTitle(form.getTitle());
+        post.setContent(form.getContent());
+
         postMapper.insert(post);
         return post;
     }

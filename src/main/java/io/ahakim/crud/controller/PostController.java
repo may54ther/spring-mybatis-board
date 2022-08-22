@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -45,15 +48,15 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute PostSaveForm form, RedirectAttributes redirectAttributes) {
-        Post post = new Post();
-        post.setWriter(form.getWriter());
-        post.setTitle(form.getTitle());
-        post.setContent(form.getContent());
+    public String addPost(@Validated @ModelAttribute("post") PostSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws BindException {
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "views/post/add";
+        }
 
-        Post savedPost = postService.save(post);
+        Post savedPost = postService.save(form);
         redirectAttributes.addAttribute("id", savedPost.getId());
-        redirectAttributes.addAttribute("status", true);
+//        redirectAttributes.addAttribute("status", true);
         return "redirect:{id}";
     }
 
@@ -65,16 +68,21 @@ public class PostController {
     }
 
     @PostMapping("/{id}/edit")
-    public String edit(@PathVariable long id, @ModelAttribute PostUpdateForm form, RedirectAttributes redirectAttributes) {
+    public String editPost(@PathVariable long id, @ModelAttribute("post") PostUpdateForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "views/post/edit";
+        }
+
         postService.update(form);
         redirectAttributes.addAttribute("id", id);
-        redirectAttributes.addAttribute("status", true);
+//        redirectAttributes.addAttribute("status", true);
         return "redirect:/posts/{id}";
     }
 
     //삭제
     @GetMapping("/{id}/remove")
-    public String remove(@PathVariable long id) {
+    public String removePost(@PathVariable long id) {
         postService.remove(id);
         return "redirect:/";
     }
