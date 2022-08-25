@@ -9,7 +9,14 @@
         WHERE use_flag = 'T'
         ]]>
     </select>
-
+    <select id="existsById" resultType="boolean">
+        <![CDATA[
+        SELECT IF(COUNT(*) = 1, 1, 0)
+        FROM post
+        WHERE use_flag = 'T'
+          AND id = #{id}
+        ]]>
+    </select>
     <select id="selectAll" resultType="Post">
         <![CDATA[
         SELECT id,

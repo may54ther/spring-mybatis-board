@@ -11,6 +11,7 @@ import java.util.List;
 public interface PostMapper {
 
     int total();
+    Boolean existsById(Long id);
     List<Post> selectAll(Criteria criteria);
     Post selectById(Long id);
     void insert(Post post);
