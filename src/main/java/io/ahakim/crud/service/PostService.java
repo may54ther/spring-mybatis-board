@@ -18,12 +18,13 @@ public class PostService {
 
     private final PostMapper postMapper;
 
-    public Boolean existsById(Long postId) {
-        return postMapper.existsById(postId);
-    }
 
     public int total() {
         return postMapper.total();
+    }
+
+    public Boolean existsById(Long postId) {
+        return postMapper.existsById(postId);
     }
 
     public List<Post> findAll(Criteria criteria) {

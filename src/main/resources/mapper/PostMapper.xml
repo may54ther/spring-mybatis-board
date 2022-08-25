@@ -24,25 +24,23 @@
                title,
                views,
                ref_id,
-               `order`,
-               indent,
-               DATE_FORMAT(create_date, '%Y-%m-%d') AS `createdAt`
+               step,
+               level,
+               DATE_FORMAT(created_at, '%Y-%m-%d') AS `createdAt`
         FROM post
         WHERE use_flag = 'T'
-        ORDER BY ref_id DESC, `order`
+        ORDER BY ref_id DESC, step
         LIMIT #{startRow}, #{rowSize}
         ]]>
     </select>
-
     <select id="selectById" parameterType="long" resultType="Post">
         <![CDATA[
-        SELECT id, writer, title, content, views, DATE_FORMAT(create_date, '%Y-%m-%d %H:%i') AS `createdAt`
+        SELECT id, writer, title, content, views, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i') AS `createdAt`
         FROM post
         WHERE use_flag = 'T'
           AND id = #{param1}
         ]]>
     </select>
-
     <insert id="insert" parameterType="Post">
         <selectKey resultType="long" keyProperty="id" order="BEFORE">
             SELECT MAX(id)+1
@@ -50,11 +48,10 @@
         </selectKey>
 
         <![CDATA[
-            INSERT INTO post (id, writer, title, content, ref_id, `order`, indent)
-            VALUES (#{id}, #{writer}, #{title}, #{content}, #{id}, 0, 0)
+            INSERT INTO post (id, writer, title, content, ref_id)
+            VALUES (#{id}, #{writer}, #{title}, #{content}, #{id})
         ]]>
     </insert>
-
     <update id="update" parameterType="PostUpdateForm">
        <![CDATA[
         UPDATE post
@@ -63,7 +60,6 @@
         WHERE id = #{id}
         ]]>
     </update>
-
     <update id="updateViews" parameterType="long">
        <![CDATA[
         UPDATE post
@@ -72,7 +68,6 @@
           AND id = ${param1}
         ]]>
     </update>
-
     <update id="delete" parameterType="long">
        <![CDATA[
         UPDATE post

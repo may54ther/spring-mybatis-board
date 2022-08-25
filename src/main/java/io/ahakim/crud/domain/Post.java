@@ -17,8 +17,8 @@ public class Post {
     private String content;
     private Integer views;
     private Long refId;
-    private Integer order;
-    private Integer indent;
+    private Integer step;
+    private Integer level;
     private String createdAt;
     private Character flag;
 
@@ -35,15 +35,15 @@ public class Post {
         this.content = content;
     }
 
-    public Post(Long id, String writer, String title, String content, Integer views, Long refId, Integer order, Integer indent) {
+    public Post(Long id, String writer, String title, String content, Integer views, Long refId, Integer step, Integer level) {
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.content = content;
         this.views = views;
         this.refId = refId;
-        this.order = order;
-        this.indent = indent;
+        this.step = step;
+        this.level = level;
     }
 }
 
