@@ -86,4 +86,14 @@ public class PostController {
         postService.remove(id);
         return "redirect:/";
     }
+
+    //답글
+    @GetMapping("/{id}/reply")
+    public String replyForm(@PathVariable long id, Model model) {
+        model.addAttribute("post", new PostSaveForm());
+        return "views/post/add";
+    }
 }
+
+
+

@@ -34,18 +34,21 @@ var postFormAction = {
     getList: function () {
         location.href = `/posts`;
     },
-    getDetail: function (postNo) {
-        location.href = `/posts/${postNo}`;
+    getDetail: function (postId) {
+        location.href = `/posts/${postId}`;
     },
     addForm: function () {
         location.href = `/posts/add`;
     },
-    editForm: function (postNo) {
-        location.href = `/posts/${postNo}/edit`;
+    replyForm: function (postId) {
+        location.href = `/posts/${postId}/reply`;
     },
-    removePost: function (postNo) {
+    editForm: function (postId) {
+        location.href = `/posts/${postId}/edit`;
+    },
+    removePost: function (postId) {
         if (confirm("게시글을 삭제하시겠습니까?")) {
-            location.href = `/posts/${postNo}/remove`;
+            location.href = `/posts/${postId}/remove`;
         }
     },
     savePost: function (e) {

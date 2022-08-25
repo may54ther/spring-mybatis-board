@@ -36,12 +36,13 @@
                 <div class="post-foot">
                     <div class="buttons">
                         <div class="left">
-                            <button type="button" class="ui button large" th:text="#{button.list}" th:onclick="|postFormAction.getList()|">목록</button>
+                            <button type="button" class="ui primary button large" th:text="#{button.add}" th:onclick="|postFormAction.addForm()|">글쓰기</button>
+                            <button type="button" class="ui  button large" th:text="#{button.reply}" th:onclick="|postFormAction.replyForm(${id})|">답글</button>
                             <button type="button" class="ui button large" th:text="#{button.edit}" th:onclick="|postFormAction.editForm(${id})|">수정</button>
                             <button type="button" class="ui button large" th:text="#{button.remove}" th:onclick="|postFormAction.removePost(${id})|">삭제</button>
                         </div>
                         <div class="right">
-                            <button type="button" class="ui primary button large" th:text="#{button.add}" th:onclick="|postFormAction.addForm()|">글쓰기</button>
+                            <button type="button" class="ui button large" th:text="#{button.list}" th:onclick="|postFormAction.getList()|">목록</button>
                         </div>
                     </div>
                 </div>
