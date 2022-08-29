@@ -13,7 +13,7 @@
         <h2 th:text="#{page.post.edit}"></h2>
 
         <div class="sec_post">
-            <form id="editForm" name="postForm" action="edit.html" th:action th:object="${post}" method="post" th:onsubmit="|postFormAction.savePost(event)|">
+            <form id="editForm" name="postForm" action="edit.html" th:action th:object="${postForm}" method="post" th:onsubmit="|postFormAction.savePost(event)|">
                 <input type="hidden" th:field="*{id}">
                 <input type="hidden" th:field="*{writer}">
                 <!-- post-head -->

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="io.ahakim.crud.mapper.PostMapper">
+    <!--    Post    -->
     <select id="total" resultType="int">
         <![CDATA[
         SELECT COUNT(*)
@@ -19,23 +20,25 @@
     </select>
     <select id="selectAll" resultType="Post">
         <![CDATA[
-        SELECT id,
-               writer,
-               title,
-               views,
-               ref_id,
-               step,
-               level,
-               DATE_FORMAT(created_at, '%Y-%m-%d') AS `createdAt`
+        SELECT id, writer, title, views, step, DATE_FORMAT(created_at, '%Y-%m-%d') AS `createdAt`
         FROM post
         WHERE use_flag = 'T'
-        ORDER BY ref_id DESC, step
+        ORDER BY ref_id DESC, step DESC
         LIMIT #{startRow}, #{rowSize}
         ]]>
     </select>
     <select id="selectById" parameterType="long" resultType="Post">
         <![CDATA[
-        SELECT id, writer, title, content, views, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i') AS `createdAt`
+        SELECT id,
+               writer,
+               title,
+               content,
+               views,
+               #                ref_id,
+               #                parent_id,
+               #                step,
+               #                level,
+               DATE_FORMAT(created_at, '%Y-%m-%d %H:%i') AS `createdAt`
         FROM post
         WHERE use_flag = 'T'
           AND id = #{param1}
@@ -52,7 +55,7 @@
             VALUES (#{id}, #{writer}, #{title}, #{content}, #{id})
         ]]>
     </insert>
-    <update id="update" parameterType="PostUpdateForm">
+    <update id="update" parameterType="Post">
        <![CDATA[
         UPDATE post
         SET title  = #{title},
@@ -65,7 +68,7 @@
         UPDATE post
         SET views = views + 1
         WHERE use_flag = 'T'
-          AND id = ${param1}
+          AND id = #{param1}
         ]]>
     </update>
     <update id="delete" parameterType="long">

@@ -32,7 +32,6 @@
                             <a th:href="@{/posts/{id}(id=${post.id})}" th:styleappend="${post.level > 0} ? 'padding-left:'+${post.getLevel*10}+'px'">
                                 <i class="ico reply" th:if="${post.level > 0}"></i>
                                 <th:block th:text="${post.title} "></th:block>
-                                제목
                             </a>
                         </td>
                         <td class="t_writer" th:text="${post.writer}">작성자</td>

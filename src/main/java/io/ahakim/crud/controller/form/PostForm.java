@@ -1,4 +1,4 @@
-package io.ahakim.crud.form;
+package io.ahakim.crud.controller.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,9 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostSaveForm {
+public class PostForm {
+
+    private long id;
 
     @NotBlank
     @Size(max = 20)

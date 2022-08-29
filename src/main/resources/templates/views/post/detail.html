@@ -13,24 +13,24 @@
         <h2 class="blind" th:text="#{page.post}"></h2>
 
         <div class="sec_post">
-            <form id="detailForm" name="postForm" action="add.html" th:action method="post" th:object="${post}">
+            <form id="detailForm" name="postForm" action="add.html" th:action method="post" th:object="${postForm}">
                 <input type="hidden" th:field="*{id}">
                 <!-- post-head -->
                 <div class="post-head">
                     <div class="ui item">
-                        <p class="title" th:text="${post.title}"></p>
+                        <p class="title" th:text="*{title}"></p>
                     </div>
                     <div class="ui item">
-                        <strong class="writer" th:text="${post.writer}"></strong>
+                        <strong class="writer" th:text="*{writer}"></strong>
                         <span> &middot; </span>
-                        <span class="date" th:text="${post.createdAt}"></span>
+                        <span class="date" th:text="*{createdAt}"></span>
                         <span> &middot; </span>
-                        <span class="views" th:text="'조회수 '+ ${post.views}"></span>
+                        <span class="views" th:text="'조회수 '+ *{views}"></span>
                     </div>
                 </div>
                 <!-- post-body -->
                 <div class="post-body">
-                    <div id="viewer" th:utext="${post.content}"></div>
+                    <div id="viewer" th:utext="*{content}"></div>
                 </div>
                 <!-- post-foot -->
                 <div class="post-foot">

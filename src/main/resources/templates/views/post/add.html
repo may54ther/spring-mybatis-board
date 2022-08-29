@@ -12,7 +12,7 @@
         <h2 th:text="#{page.post.add}"></h2>
 
         <div class="sec_post">
-            <form id="addForm" name="postForm" method="post" action="add.html" th:action th:object="${post}" th:onsubmit="|postFormAction.savePost(event)|">
+            <form id="addForm" name="postForm" method="post" action="add.html" th:action th:object="${postForm}" th:onsubmit="|postFormAction.savePost(event)|">
                 <!-- post-head -->
                 <div class="post-head">
                     <div class="ui grid equal width">
