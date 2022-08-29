@@ -92,5 +92,28 @@ public class PostController {
         postService.remove(id);
         return "redirect:/";
     }
+
+    /* REPLY */
+    //등록
+    @GetMapping("/{parentId}/reply")
+    public String replyForm(@PathVariable long parentId, Model model) {
+        model.addAttribute("postForm", new Post());
+        return "views/post/add";
+    }
+
+    @PostMapping("/{parentId}/reply")
+    public String addReply(@PathVariable long parentId, PostForm form, Model model) {
+        Post parentPost = postService.findById(parentId);
+        int nextStep = postService.getNextStep(parentId);
+
+        Post post = new Post(form.getWriter(), form.getTitle(), form.getContent());
+        post.setRefId(parentPost.getRefId());
+        post.setParentId(parentPost.getId());
+        post.setStep(nextStep);
+        post.setLevel(parentPost.getNextLevel());
+
+        postService.saveReply(post);
+        return "redirect:/posts";
+    }
 }
 

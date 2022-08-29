@@ -17,5 +17,9 @@ public interface PostMapper {
     void update(Post post);
     void updateViews(Long id);
     void delete(Long id);
+    /* Reply */
+    Integer selectNextStepByParentId(Long parentId);
+    void insertReply(Post post);
+    void updateNextSteps(Long refId, Long parentId, Integer step);
 }
 

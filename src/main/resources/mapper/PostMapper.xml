@@ -20,10 +20,19 @@
     </select>
     <select id="selectAll" resultType="Post">
         <![CDATA[
-        SELECT id, writer, title, views, step, DATE_FORMAT(created_at, '%Y-%m-%d') AS `createdAt`
+        SELECT id,
+               writer,
+               title,
+               content,
+               views,
+               ref_id,
+               parent_id,
+               step,
+               level,
+               DATE_FORMAT(created_at, '%Y-%m-%d') AS `createdAt`
         FROM post
         WHERE use_flag = 'T'
-        ORDER BY ref_id DESC, step DESC
+        ORDER BY ref_id DESC, step
         LIMIT #{startRow}, #{rowSize}
         ]]>
     </select>
@@ -34,10 +43,10 @@
                title,
                content,
                views,
-               #                ref_id,
-               #                parent_id,
-               #                step,
-               #                level,
+               ref_id,
+               parent_id,
+               step,
+               level,
                DATE_FORMAT(created_at, '%Y-%m-%d %H:%i') AS `createdAt`
         FROM post
         WHERE use_flag = 'T'
@@ -76,6 +85,28 @@
         UPDATE post
         SET use_flag='F'
         WHERE id = #{param1}
+        ]]>
+    </update>
+    <!--    REPLY    -->
+    <insert id="insertReply" parameterType="Post">
+        <![CDATA[
+        INSERT INTO post (writer, title, content, ref_id, parent_id, step, level)
+        VALUES (#{writer}, #{title}, #{content}, #{refId}, #{parentId}, #{step}, #{level})
+        ]]>
+    </insert>
+    <select id="selectNextStepByParentId" parameterType="long" resultType="int">
+       <![CDATA[
+        SELECT IFNULL(MAX(step), (SELECT step FROM post WHERE id = #{param1})) + 1
+        FROM post
+        WHERE parent_id = #{param1};
+        ]]>
+    </select>
+    <update id="updateNextSteps">
+       <![CDATA[
+        UPDATE post
+        SET step = step + 1
+        WHERE ref_id = #{param1}
+          AND step >= #{param3}
         ]]>
     </update>
 </mapper>

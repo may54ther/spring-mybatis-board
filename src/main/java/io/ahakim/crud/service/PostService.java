@@ -33,8 +33,9 @@ public class PostService {
         return postMapper.selectById(id);
     }
 
-    public void save(Post post) {
+    public Long save(Post post) {
         postMapper.insert(post);
+        return post.getId();
     }
 
     public void update(Post post) {
@@ -47,5 +48,19 @@ public class PostService {
 
     public void remove(Long id) {
         postMapper.delete(id);
+    }
+
+    /* Reply */
+    public Integer getNextStep(Long parentId) {
+        return postMapper.selectNextStepByParentId(parentId);
+    }
+
+    public void saveReply(Post post) {
+        updateNextSteps(post.getRefId(), post.getParentId(), post.getStep());
+        postMapper.insertReply(post);
+    }
+
+    private void updateNextSteps(Long refId, Long parentId, Integer step) {
+        postMapper.updateNextSteps(refId, parentId, step);
     }
 }
