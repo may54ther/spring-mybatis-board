@@ -1,14 +1,14 @@
 package io.ahakim.crud.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@ToString
 public class Post {
 
     private Long id;
@@ -17,16 +17,11 @@ public class Post {
     private String content;
     private Integer views;
     private Long refId;
+    private Long parentId;
     private Integer step;
     private Integer level;
     private String createdAt;
     private Character flag;
-
-    public Post(String writer, String title, String content) {
-        this.writer = writer;
-        this.title = title;
-        this.content = content;
-    }
 
     public Post(Long id, String writer, String title, String content) {
         this.id = id;
@@ -35,15 +30,10 @@ public class Post {
         this.content = content;
     }
 
-    public Post(Long id, String writer, String title, String content, Integer views, Long refId, Integer step, Integer level) {
-        this.id = id;
+    public Post(String writer, String title, String content) {
         this.writer = writer;
         this.title = title;
         this.content = content;
-        this.views = views;
-        this.refId = refId;
-        this.step = step;
-        this.level = level;
     }
 }
 
