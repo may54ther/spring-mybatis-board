@@ -60,24 +60,22 @@
                                 <i class="icon angle double left"></i>
                                 <span class="blind">처음</span>
                             </a>
-                            <a class="item" th:href="@{/posts(page=${pageMaker.rangeStart+(-1)})}">
+                            <a class="item" th:href="@{/posts(page=*{rangeStart}-1)}">
                                 <i class="angle left icon"></i>
                                 <span class="blind">이전</span>
                             </a>
                         </th:block>
-
                         <!-- Number -->
-                        <th:block th:each="pageNo : ${#numbers.sequence(pageMaker.rangeStart, pageMaker.rangeEnd)}">
+                        <th:block th:each="pageNo : *{#numbers.sequence(rangeStart, rangeEnd)}">
                             <a class="item" th:th:classappend="${pageNo == pageMaker.criteria.page ? 'active':''}" th:href="@{/posts(page=${pageNo})}" th:text="${pageNo}"></a>
                         </th:block>
-
                         <!-- Next, Last -->
                         <th:block th:if="${pageMaker.next}">
-                            <a class="item" th:href="@{/posts(page=${pageMaker.rangeEnd+1})}">
+                            <a class="item" th:href="@{/posts(page=*{rangeEnd}+1)}">
                                 <i class="angle right icon"></i>
                                 <span class="blind">다음</span>
                             </a>
-                            <a class="item" th:href="@{/posts(page=${pageMaker.totalPage})}">
+                            <a class="item" th:href="@{/posts(page=*{totalPage})}">
                                 <i class="angle double right icon"></i>
                                 <span class="blind">마지막</span>
                             </a>
@@ -92,5 +90,11 @@
 <th:block layout:fragment="script">
     <script th:src="@{/libs/toastui-editor/js/toastui-editor-all.min.js}"></script>
     <script th:src="@{/js/post.js}"></script>
+    <script th:inline="javascript">
+        const redirectMessage = [[${msg}]];
+        if (redirectMessage) {
+            alert(redirectMessage);
+        }
+    </script>
 </th:block>
 </html>

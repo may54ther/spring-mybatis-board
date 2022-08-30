@@ -1,10 +1,10 @@
 package io.ahakim.crud.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
+@Setter
 public class Criteria {
 
     private int page;
@@ -14,11 +14,8 @@ public class Criteria {
         this(1, 10);
     }
 
-    public void setPage(int page) {
+    public Criteria(int page, int rowSize) {
         this.page = page > 0 ? page : 1;
-    }
-
-    public void setRowSize(int rowSize) {
         this.rowSize = Math.max(rowSize, 10);
     }
 

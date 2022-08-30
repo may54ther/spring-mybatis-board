@@ -21,7 +21,7 @@ public class PostService {
         return postMapper.total();
     }
 
-    private Boolean existsById(Long postId) {
+    public Boolean existsById(Long postId) {
         return postMapper.existsById(postId);
     }
 

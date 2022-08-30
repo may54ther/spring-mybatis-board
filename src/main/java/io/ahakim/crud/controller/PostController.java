@@ -13,7 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -23,19 +23,32 @@ public class PostController {
 
     private final PostService postService;
 
-    /* POST */
     //목록
     @GetMapping
-    public String posts(@ModelAttribute Criteria criteria, Model model) {
+    public String posts(@ModelAttribute Criteria criteria, Model model, RedirectAttributes redirect) {
+        int total = postService.total();
+        int totalPage = (int) Math.ceil((double) total / criteria.getRowSize());
+        int page = criteria.getPage();
+        if (page < 1 || page > totalPage) {
+            redirect.addFlashAttribute("criteria", criteria);
+            return "redirect:";
+        }
+
         PageMaker pageMaker = new PageMaker(postService.total(), criteria);
-        model.addAttribute("posts", postService.findAll(criteria));
+        List<Post> posts = postService.findAll(pageMaker.getCriteria());
         model.addAttribute("pageMaker", pageMaker);
+        model.addAttribute("posts", posts);
         return "views/post/list";
     }
 
     //조회
     @GetMapping("/{id}")
-    public String post(@PathVariable long id, Model model) throws Exception {
+    public String post(@PathVariable long id, Model model, RedirectAttributes redirect) {
+        if (!postService.existsById(id)) {
+            redirect.addFlashAttribute("msg", "존재하지 않는 게시물입니다.");
+            return "redirect:/posts";
+        }
+        postService.updateViews(id);
         model.addAttribute("postForm", postService.findById(id));
         return "views/post/detail";
     }
@@ -48,7 +61,7 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    public String addPost(@Valid PostForm form, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String addPost(PostForm form, BindingResult result, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             log.info("errors={}", result);
             return "views/post/add";
@@ -57,23 +70,20 @@ public class PostController {
         Post post = new Post(form.getId(), form.getWriter(), form.getTitle(), form.getContent());
         postService.save(post);
 
-        redirectAttributes.addAttribute("id", post.getId());
+        redirect.addAttribute("id", post.getId());
         return "redirect:{id}";
     }
 
     //수정
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable long id, Model model, BindingResult result) {
-        if (result.hasErrors()) {
-            return "views/post/edit";
-        }
+    public String editForm(@PathVariable long id, Model model) {
 
         model.addAttribute("postForm", postService.findById(id));
         return "views/post/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String editPost(@PathVariable long id, @Valid PostForm form, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String editPost(@PathVariable long id, PostForm form, BindingResult result, RedirectAttributes redirect) {
         if (result.hasErrors()) {
             log.info("errors={}", result);
             return "views/post/edit";
@@ -82,7 +92,7 @@ public class PostController {
         Post post = new Post(form.getId(), form.getWriter(), form.getTitle(), form.getContent());
         postService.update(post);
 
-        redirectAttributes.addAttribute("id", id);
+        redirect.addAttribute("id", id);
         return "redirect:/posts/{id}";
     }
 
@@ -93,11 +103,10 @@ public class PostController {
         return "redirect:/";
     }
 
-    /* REPLY */
-    //등록
+    //답글
     @GetMapping("/{parentId}/reply")
     public String replyForm(@PathVariable long parentId, Model model) {
-        model.addAttribute("postForm", new Post());
+        model.addAttribute("postForm", new PostForm());
         return "views/post/add";
     }
 
