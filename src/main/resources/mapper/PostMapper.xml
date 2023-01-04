@@ -6,15 +6,15 @@
     <select id="total" resultType="int">
         <![CDATA[
         SELECT COUNT(*)
-        FROM post
-        WHERE use_flag = 'T'
+        FROM posts
+        WHERE status = 'T'
         ]]>
     </select>
     <select id="existsById" resultType="boolean">
         <![CDATA[
         SELECT IF(COUNT(*) = 1, 1, 0)
-        FROM post
-        WHERE use_flag = 'T'
+        FROM posts
+        WHERE status = 'T'
           AND id = #{id}
         ]]>
     </select>
@@ -30,8 +30,8 @@
                step,
                level,
                DATE_FORMAT(created_at, '%Y-%m-%d') AS `createdAt`
-        FROM post
-        WHERE use_flag = 'T'
+        FROM posts
+        WHERE status = 'T'
         ORDER BY ref_id DESC, step
         LIMIT #{startRow}, #{rowSize}
         ]]>
@@ -48,25 +48,25 @@
                step,
                level,
                DATE_FORMAT(created_at, '%Y-%m-%d %H:%i') AS `createdAt`
-        FROM post
-        WHERE use_flag = 'T'
+        FROM posts
+        WHERE status = 'T'
           AND id = #{param1}
         ]]>
     </select>
     <insert id="insert" parameterType="Post">
         <selectKey resultType="long" keyProperty="id" order="BEFORE">
             SELECT MAX(id)+1
-            FROM post
+            FROM posts
         </selectKey>
 
         <![CDATA[
-            INSERT INTO post (id, writer, title, content, ref_id)
+            INSERT INTO posts (id, writer, title, content, ref_id)
             VALUES (#{id}, #{writer}, #{title}, #{content}, #{id})
         ]]>
     </insert>
     <update id="update" parameterType="Post">
        <![CDATA[
-        UPDATE post
+        UPDATE posts
         SET title  = #{title},
             content=#{content}
         WHERE id = #{id}
@@ -74,36 +74,36 @@
     </update>
     <update id="updateViews" parameterType="long">
        <![CDATA[
-        UPDATE post
+        UPDATE posts
         SET views = views + 1
-        WHERE use_flag = 'T'
+        WHERE status = 'T'
           AND id = #{param1}
         ]]>
     </update>
     <update id="delete" parameterType="long">
        <![CDATA[
-        UPDATE post
-        SET use_flag='F'
+        UPDATE posts
+        SET status ='F'
         WHERE id = #{param1}
         ]]>
     </update>
     <!--    REPLY    -->
     <insert id="insertReply" parameterType="Post">
         <![CDATA[
-        INSERT INTO post (writer, title, content, ref_id, parent_id, step, level)
+        INSERT INTO posts (writer, title, content, ref_id, parent_id, step, level)
         VALUES (#{writer}, #{title}, #{content}, #{refId}, #{parentId}, #{step}, #{level})
         ]]>
     </insert>
     <select id="selectNextStepByParentId" parameterType="long" resultType="int">
        <![CDATA[
-        SELECT IFNULL(MAX(step), (SELECT step FROM post WHERE id = #{param1})) + 1
-        FROM post
+        SELECT IFNULL(MAX(step), (SELECT step FROM posts WHERE id = #{param1})) + 1
+        FROM posts
         WHERE parent_id = #{param1};
         ]]>
     </select>
     <update id="updateNextSteps">
        <![CDATA[
-        UPDATE post
+        UPDATE posts
         SET step = step + 1
         WHERE ref_id = #{param1}
           AND step >= #{param3}
