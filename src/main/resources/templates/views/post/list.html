@@ -52,7 +52,7 @@
             <!-- pagination -->
             <form th:action th:object="${pageMaker}">
                 <input type="hidden" th:field="*{criteria.page}"/>
-                <input type="hidden" th:field="*{criteria.rowSize}"/>
+                <input type="hidden" th:field="*{criteria.getSize}"/>
                 <nav class="page-nav" aria-label="Page navigation" role="navigation">
                     <div class="ui pagination menu">
                         <th:block th:if="${pageMaker.prev}">
