@@ -49,20 +49,6 @@ public class Post {
         this.createdAt = createdAt;
     }
 
-    //
-    //    @Builder
-    //    public PostViewDto toDto() {
-    //        return PostViewDto.builder()
-    //                .id(id)
-    //                .writer(writer)
-    //                .title(title)
-    //                .content(content)
-    //                .views(views)
-    //                .createdAt(createdAt)
-    //                .build();
-    //
-    //    }
-
     public Integer getNextLevel() {
         return this.level + 1;
     }
