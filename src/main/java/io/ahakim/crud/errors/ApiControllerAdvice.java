@@ -19,7 +19,7 @@ import static io.ahakim.crud.utils.ApiUtils.error;
 
 @Slf4j
 @RestControllerAdvice("io.ahakim.crud.api")
-public class GlobalApiExceptionHandler {
+public class ApiControllerAdvice {
 
     private ResponseEntity<ApiResult<?>> newResponse(Throwable throwable, HttpStatus status) {
         return newResponse(throwable.getMessage(), status);

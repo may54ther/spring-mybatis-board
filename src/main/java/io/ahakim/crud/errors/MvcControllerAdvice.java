@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 @Slf4j
 @ControllerAdvice("io.ahakim.crud.controller")
-public class GlobalExceptionHandler {
+public class MvcControllerAdvice {
 
     @ExceptionHandler({PostNotFoundException.class})
     public String handlePostNotFoundException(PostNotFoundException e, RedirectAttributes redirect) {
@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({Exception.class, RuntimeException.class})
     public void handleException(Exception e) {
-        log.info("GlobalExceptionHandler.handleException");
+        log.info("MvcControllerAdvice.handleException");
         log.info("e={} ", Arrays.toString(e.getStackTrace()));
     }
 }
