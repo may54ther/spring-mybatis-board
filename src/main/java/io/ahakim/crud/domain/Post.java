@@ -11,6 +11,8 @@ public class Post {
 
     private Long id;
 
+    private String userId;
+
     private String writer;
 
     private String title;
@@ -27,13 +29,14 @@ public class Post {
 
     private Integer level;
 
-    private String createdAt;
-
     private Character status;
 
+    private String createdAt;
+
     @Builder
-    public Post(Long id, String writer, String title, String content, Integer views, Long refId, Long parentId, Integer step, Integer level, String createdAt, Character status) {
+    public Post(Long id, String userId, String writer, String title, String content, Integer views, Long refId, Long parentId, Integer step, Integer level, Character status, String createdAt) {
         this.id = id;
+        this.userId = userId;
         this.writer = writer;
         this.title = title;
         this.content = content;
@@ -42,9 +45,23 @@ public class Post {
         this.parentId = parentId;
         this.step = step;
         this.level = level;
-        this.createdAt = createdAt;
         this.status = status;
+        this.createdAt = createdAt;
     }
+
+    //
+    //    @Builder
+    //    public PostViewDto toDto() {
+    //        return PostViewDto.builder()
+    //                .id(id)
+    //                .writer(writer)
+    //                .title(title)
+    //                .content(content)
+    //                .views(views)
+    //                .createdAt(createdAt)
+    //                .build();
+    //
+    //    }
 
     public Integer getNextLevel() {
         return this.level + 1;

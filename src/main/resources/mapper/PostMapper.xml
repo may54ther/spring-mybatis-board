@@ -89,19 +89,24 @@
     </update>
     <!--    REPLY    -->
     <insert id="insertReply" parameterType="Post">
+        <selectKey resultType="long" keyProperty="id" order="BEFORE">
+            SELECT MAX(id)+1
+            FROM posts
+        </selectKey>
+
         <![CDATA[
         INSERT INTO posts (writer, title, content, ref_id, parent_id, step, level)
         VALUES (#{writer}, #{title}, #{content}, #{refId}, #{parentId}, #{step}, #{level})
         ]]>
     </insert>
-    <select id="selectNextStepByParentId" parameterType="long" resultType="int">
-       <![CDATA[
-        SELECT IFNULL(MAX(step), (SELECT step FROM posts WHERE id = #{param1})) + 1
+    <select id="selectMaxStepByParentId" parameterType="long" resultType="int">
+        <![CDATA[
+        SELECT IFNULL(MAX(step), (SELECT step FROM posts WHERE id = #{param1}))
         FROM posts
         WHERE parent_id = #{param1};
         ]]>
     </select>
-    <update id="updateNextSteps">
+    <update id="updateSiblingSteps">
        <![CDATA[
         UPDATE posts
         SET step = step + 1

@@ -19,13 +19,19 @@ public interface PostMapper {
 
     Optional<Post> selectById(Long id);
 
-    //    void insert(Post post);
-    //    void update(Post post);
+    void insert(Post post);
+
+    void update(Post post);
+
     void updateViews(Long id);
-    //    void delete(Long id);
-    //    /* Reply */
-    //    Integer selectNextStepByParentId(Long parentId);
-    //    void insertReply(Post post);
-    //    void updateNextSteps(Long refId, Long parentId, Integer step);
+
+    void delete(Long id);
+
+    /* Reply */
+    int selectMaxStepByParentId(Long parentId);
+
+    void insertReply(Post post);
+
+    void updateSiblingSteps(Long refId, Long parentId, Integer step);
 }
 
