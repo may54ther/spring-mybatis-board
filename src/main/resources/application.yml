@@ -8,7 +8,7 @@ spring:
     cache: false
     check-template-location: true
   messages:
-    basename: messages,errors
+    basename: messages
     encoding: utf-8
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
