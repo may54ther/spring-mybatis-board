@@ -8,19 +8,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Arrays;
 
 @Slf4j
-@ControllerAdvice("io.crud.ahakim.controller")
+@ControllerAdvice("io.ahakim.crud.controller")
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler({PostNotFoundException.class})
+    public String handlePostNotFoundException(PostNotFoundException e, RedirectAttributes redirect) {
+        redirect.addFlashAttribute("msg", e.getMessage());
+        return "redirect:/posts";
+    }
 
     @ExceptionHandler({Exception.class, RuntimeException.class})
     public void handleException(Exception e) {
         log.info("GlobalExceptionHandler.handleException");
         log.info("e={} ", Arrays.toString(e.getStackTrace()));
-    }
-
-    // 예외
-    @ExceptionHandler({PostNotFoundException.class})
-    public String handlePostNotFoundException(PostNotFoundException e, RedirectAttributes redirect) {
-        redirect.addFlashAttribute("msg", e.getMessage());
-        return "redirect:/posts";
     }
 }
