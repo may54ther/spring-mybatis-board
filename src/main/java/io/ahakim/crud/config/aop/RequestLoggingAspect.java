@@ -1,4 +1,4 @@
-package io.ahakim.crud.aop;
+package io.ahakim.crud.config.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -38,15 +38,17 @@ public class RequestLoggingAspect {
             return joinPoint.proceed(joinPoint.getArgs());
         } finally {
             long afterTimeMills = System.currentTimeMillis();
-            log.info("[Request] {} {}{} < {} ({}ms)", request.getMethod(), request.getRequestURI(),
+            log.info("[Request] {} {}{} < {} ({}ms)",
+                    request.getMethod(), request.getRequestURI(),
                     params, request.getRemoteHost(), afterTimeMills - beforeTimeMills);
         }
     }
 
     private String paramMapToString(Map<String, String[]> paramMap) {
-        return paramMap.entrySet().stream()
-                .map(entry -> String.format("%s : %s", entry.getKey(),
-                        Arrays.toString(entry.getValue()))).collect(Collectors.joining(", "));
+        return paramMap.entrySet()
+                       .stream()
+                       .map(entry -> String.format("%s : %s", entry.getKey(), Arrays.toString(entry.getValue())))
+                       .collect(Collectors.joining(", "));
     }
 }
 

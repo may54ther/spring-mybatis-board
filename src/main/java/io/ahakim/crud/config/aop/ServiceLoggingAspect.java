@@ -1,4 +1,4 @@
-package io.ahakim.crud.aop;
+package io.ahakim.crud.config.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -29,7 +29,8 @@ public class ServiceLoggingAspect {
         Object result = joinPoint.proceed();
         long afterTimeMills = System.currentTimeMillis();
 
-        log.info("[Service] {}  ({}ms)", joinPoint.getSignature(), (afterTimeMills - beforeTimeMills));
+        log.info("[Service] {}  ({}ms)",
+                joinPoint.getSignature(), (afterTimeMills - beforeTimeMills));
         return result;
     }
 }
